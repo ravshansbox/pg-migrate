@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { migrateDown, migrateSync, migrateUp } from '../index.js';
+import { logger } from '../logger.js';
 
 const command = process.argv[2];
 
@@ -11,7 +12,7 @@ const command = process.argv[2];
   } else if (command === 'sync') {
     await migrateSync();
   } else {
-    process.stderr.write(`Unknown command: ${command}\n`);
+    logger.error(`Unknown command: ${command}\n`);
     process.exit(1);
   }
 })();

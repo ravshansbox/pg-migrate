@@ -2,9 +2,10 @@ import fs from 'node:fs/promises';
 import path from 'path';
 import pg from 'pg';
 import { parseMigration } from './parseMigration.js';
+import { logger } from './logger.js';
 
 export async function applyMigration(client: pg.Client, migration: string) {
-  process.stdout.write(`${migration}...`);
+  logger.info(`${migration}...`);
   const sql = await fs.readFile(
     path.join(process.cwd(), 'migrations', migration),
     'utf-8',
@@ -15,5 +16,5 @@ export async function applyMigration(client: pg.Client, migration: string) {
     migration,
     down,
   ]);
-  process.stdout.write('done\n');
+  logger.info('done\n');
 }
