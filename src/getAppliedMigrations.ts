@@ -1,9 +1,11 @@
-import pg from 'pg';
-import { type Migration } from './types';
+import { wrapInClient } from './wrapInClient.js';
+import { getRows } from './getRows.js';
+import { type Migration } from './types.js';
 
-export async function getAppliedMigrations(client: pg.Client) {
-  const { rows } = await client.query<Migration>(
-    'select name, down from _migrations'
-  );
-  return rows;
+export async function getAppliedMigrations() {
+  return wrapInClient((client) => {
+    return getRows(
+      client.query<Migration>('select name, down from _migrations'),
+    );
+  });
 }

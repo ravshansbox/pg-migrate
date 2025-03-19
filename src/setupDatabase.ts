@@ -1,7 +1,9 @@
-import pg from 'pg';
+import { wrapInClient } from './wrapInClient.js';
 
-export async function setupDatabase(client: pg.Client) {
-  await client.query(
-    'create table if not exists _migrations (name text primary key, down text)',
-  );
+export async function setupDatabase() {
+  await wrapInClient(async (client) => {
+    await client.query(
+      'create table if not exists _migrations (name text primary key, down text)',
+    );
+  });
 }

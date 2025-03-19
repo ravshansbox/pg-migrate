@@ -1,6 +1,7 @@
 {
   "name": "@ravshansbox/pg-migrate",
-  "version": "0.4.0",
+  "version": "0.7.0",
+  "type": "module",
   "author": "Ravshan Samandarov",
   "license": "MIT",
   "description": "PostgreSQL Migration tool for NodeJS",
@@ -15,24 +16,15 @@
     "url": "git+https://github.com/ravshansbox/pg-migrate.git"
   },
   "bin": {
-    "pg-migrate": "dist/esm/bin/migrate.js"
+    "pg-migrate": "dist/bin/migrate.js"
   },
-  "exports": {
-    "types": "./dist/types/index.d.ts",
-    "require": "./dist/cjs/index.js",
-    "import": "./dist/esm/index.js"
-  },
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "npm run build:cjs && npm run build:esm && npm run build:types",
-    "build:cjs": "tsc --module commonjs --outDir dist/cjs",
-    "build:esm": "tsc --module esnext --outDir dist/esm",
-    "build:types": "tsc --declaration --emitDeclarationOnly --declarationDir dist/types",
-    "build:w": "tsup-node --clean --dts --format cjs,esm --watch 'src/**/*.ts' src/index.ts src/bin/migrate.ts",
-    "chmod:cjs": "chmod +x ./dist/cjs/bin/migrate.js",
-    "chmod:esm": "chmod +x ./dist/esm/bin/migrate.js",
+    "build": "rm -fr dist && tsc --outDir dist && chmod +x dist/bin/migrate.js",
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
@@ -41,7 +33,6 @@
   "devDependencies": {
     "@types/node": "^22.13.10",
     "@types/pg": "^8.11.11",
-    "tsup": "^8.4.0",
     "typescript": "^5.8.2"
   }
 }

@@ -3,27 +3,19 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { migrateDown, migrateSync, migrateUp } from '../index.js';
 import { logger } from '../logger.js';
-
-const template = `
--- Up Migration
---
--- Down Migration
---
-`.trim();
-
-const command = process.argv[2];
+import { template } from '../constants.js';
 
 (async () => {
+  const command = process.argv[2];
   if (command === 'make') {
     const name = process.argv[3];
     if (!name) {
       logger.error('Provide a migration name\n');
       process.exit(1);
     }
-    await fs.writeFile(
-      path.join(process.cwd(), `migrations/${name}.sql`),
-      template,
-    );
+    const filename = path.join(process.cwd(), `migrations/${name}.sql`);
+    await fs.writeFile(filename, template);
+    logger.info(`Migration ${filename} created`);
   } else if (command === 'up') {
     await migrateUp();
   } else if (command === 'down') {
