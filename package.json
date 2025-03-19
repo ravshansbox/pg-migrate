@@ -1,6 +1,6 @@
 {
   "name": "@ravshansbox/pg-migrate",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "author": "Ravshan Samandarov",
   "license": "MIT",
   "description": "PostgreSQL Migration tool for NodeJS",
