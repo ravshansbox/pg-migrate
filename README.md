@@ -37,7 +37,7 @@ If not provided, it defaults to `postgres://postgres:postgres@localhost:5432/pos
 Create a new migration file:
 
 ```bash
-npx -p @ravshansbox/pg-migrate pg-migrate make 001_create-users-table
+pg-migrate make 001_create-users-table
 ```
 
 This will create a file in the `migrations` directory with the following format:
@@ -56,22 +56,22 @@ DROP TABLE users;
 
 ### Running Migrations
 
-Apply all pending migrations:
+Synchronize the database with your migration files(preferred command):
 
 ```bash
-npx -p @ravshansbox/pg-migrate pg-migrate up
+pg-migrate sync
 ```
 
-Revert the most recently applied migrations:
+Apply all pending migrations(if you do not want automatic reversions):
 
 ```bash
-npx -p @ravshansbox/pg-migrate pg-migrate down
+pg-migrate up
 ```
 
-Synchronize the database with your migration files (revert dangling migrations and apply new ones):
+Revert all applied migrations:
 
 ```bash
-npx -p @ravshansbox/pg-migrate pg-migrate sync
+pg-migrate down
 ```
 
 ## How it Works
