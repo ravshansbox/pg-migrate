@@ -2,11 +2,14 @@
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "declaration": true,
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "skipLibCheck": true,
-    "target": "esnext"
-  }
+    "strict": true,
+    "esModuleInterop": true,
+    "target": "es2023",
+    "lib": ["es2023"]
+  },
+  "include": ["src/**/*"],
+  "exclude": ["dist", "node_modules"]
 }

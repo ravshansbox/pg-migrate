@@ -1,6 +1,6 @@
 {
   "name": "@ravshansbox/pg-migrate",
-  "version": "0.7.3",
+  "version": "0.8.0",
   "type": "module",
   "author": "Ravshan Samandarov",
   "license": "MIT",
@@ -16,23 +16,35 @@
     "url": "git+https://github.com/ravshansbox/pg-migrate.git"
   },
   "bin": {
-    "pg-migrate": "dist/bin/migrate.js"
+    "pg-migrate": "dist/esm/bin/migrate.js"
   },
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/esm/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js",
+      "types": "./dist/esm/index.d.ts"
+    }
+  },
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "rm -fr dist && tsc --outDir dist && chmod +x dist/bin/migrate.js",
+    "build": "npm run clean && npm run build:esm && npm run build:cjs && npm run post-build && chmod +x dist/esm/bin/migrate.js",
+    "build:esm": "tsc -p tsconfig.esm.json",
+    "build:cjs": "tsc -p tsconfig.cjs.json",
+    "clean": "rm -rf dist",
+    "post-build": "node scripts/post-build.js",
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "pg": "^8.14.1"
+    "pg": "^8.16.0"
   },
   "devDependencies": {
-    "@types/node": "^22.13.11",
-    "@types/pg": "^8.11.11",
-    "typescript": "^5.8.2"
+    "@types/node": "^24.0.1",
+    "@types/pg": "^8.15.4",
+    "typescript": "^5.8.3"
   }
 }
