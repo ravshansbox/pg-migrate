@@ -1,6 +1,6 @@
 {
   "name": "@ravshansbox/pg-migrate",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "type": "module",
   "author": "Ravshan Samandarov",
   "license": "MIT",
