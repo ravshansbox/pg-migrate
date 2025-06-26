@@ -43,14 +43,14 @@ pg-migrate make 001_create-users-table
 This will create a file in the `migrations` directory with the following format:
 
 ```sql
--- Up Migration
+-- Up
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
   name TEXT NOT NULL,
   email TEXT UNIQUE NOT NULL
 );
 
--- Down Migration
+-- Down
 DROP TABLE users;
 ```
 
@@ -88,9 +88,9 @@ pg-migrate keeps track of applied migrations in a `_migrations` table in your da
 Migration files should follow this structure:
 
 ```sql
--- Up Migration
+-- Up
 -- Your SQL to apply the migration
--- Down Migration
+-- Down
 -- Your SQL to reverse the migration
 ```
 
@@ -101,16 +101,16 @@ The parser looks for these exact markers to separate up and down migrations.
 You can also use pg-migrate programmatically in your code:
 
 ```typescript
-import { migrateUp, migrateDown, migrateSync } from '@ravshansbox/pg-migrate';
+import { migrateUp, migrateDown, migrateSync } from '@ravshansbox/pg-migrate'
 
 // Apply pending migrations
-await migrateUp();
+await migrateUp()
 
 // Revert migrations
-await migrateDown();
+await migrateDown()
 
 // Synchronize migrations
-await migrateSync();
+await migrateSync()
 ```
 
 ## License

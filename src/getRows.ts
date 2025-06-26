@@ -1,8 +1,8 @@
-import pg from 'pg';
+import pg from 'pg'
 
 export async function getRows<T extends pg.QueryResultRow>(
-  promise: Promise<pg.QueryResult<T>>
+  promise: Promise<pg.QueryResult<T>>,
 ) {
-  const { rows } = await promise;
-  return rows;
+  const { rows } = await promise
+  return rows
 }

@@ -1,1 +1,1 @@
-export type Migration = { name: string; down: string };
+export type Migration = { name: string; down: string }
