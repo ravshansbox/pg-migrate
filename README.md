@@ -14,10 +14,6 @@ A simple, typesafe PostgreSQL migration tool for Node.js applications.
 
 ```bash
 npm install @ravshansbox/pg-migrate
-# or
-yarn add @ravshansbox/pg-migrate
-# or
-pnpm add @ravshansbox/pg-migrate
 ```
 
 ## Usage
