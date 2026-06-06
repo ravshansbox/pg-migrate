@@ -94,19 +94,26 @@ The parser looks for these exact markers to separate up and down migrations.
 
 ## API Usage
 
-You can also use pg-migrate programmatically in your code:
+You can also use pg-migrate programmatically in your code. All public functions require a `pg.Client` instance, giving you full control over the connection lifecycle:
 
 ```typescript
+import pg from 'pg'
 import { migrateUp, migrateDown, migrateSync } from '@ravshansbox/pg-migrate'
 
-// Apply pending migrations
-await migrateUp()
+const client = new pg.Client({ connectionString: 'postgres://user:pass@host:5432/db' })
+await client.connect()
+try {
+  // Apply pending migrations
+  await migrateUp(client)
 
-// Revert migrations
-await migrateDown()
+  // Revert migrations
+  await migrateDown(client)
 
-// Synchronize migrations
-await migrateSync()
+  // Synchronize migrations (reverts dangling, then applies pending)
+  await migrateSync(client)
+} finally {
+  await client.end()
+}
 ```
 
 ## License

@@ -34,7 +34,7 @@ const dir = path.join(process.cwd(), 'migrations')
       } else if (command === 'down') {
         await migrateDown(client)
       } else {
-        await migrateSync()
+        await migrateSync(client)
       }
     } finally {
       await client.end()
