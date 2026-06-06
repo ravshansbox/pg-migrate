@@ -1,17 +1,21 @@
+import pg from 'pg'
 import { type Migration } from './types.js'
 import { logger } from './logger.js'
 import { sortByProp } from './sortByProp.js'
 import { wrapInTransation } from './wrapInTransation.js'
 import { revertMigration } from './revertMigration.js'
 
-export async function revertMigrations(migrations: Migration[]) {
+export async function revertMigrations(
+  client: pg.Client,
+  migrations: Migration[],
+) {
   if (migrations.length === 0) {
     logger.info('No migrations to revert\n')
     return
   }
   const sortedMigrations = migrations.toSorted(sortByProp('name')).toReversed()
   logger.info('Reverting migrations\n')
-  await wrapInTransation(async client => {
+  await wrapInTransation(client, async client => {
     for (const migration of sortedMigrations) {
       await revertMigration(client, migration)
     }
